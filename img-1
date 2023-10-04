@@ -1,0 +1,41 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Create a blank canvas for the image
+width = 400
+height = 300
+channels = 3
+image = np.zeros((height, width, channels), dtype=np.uint8)
+
+# Background (sky blue)
+image[:,:] = [135, 206, 235]
+
+# House body (peachpuff)
+image[100:250, 100:300] = [255, 218, 185]
+
+# Roof (red)
+roof_vertices = np.array([[100, 100], [250, 50], [300, 100]], np.int32)
+image = cv2.fillPoly(image, [roof_vertices], [255, 0, 0])
+
+# Door (brown)
+image[150:250, 200:240] = [139, 69, 19]
+
+# Window frame (white)
+image[120:170, 120:170] = [255, 255, 255]
+image[120:170, 240:290] = [255, 255, 255]
+image[220:270, 120:170] = [255, 255, 255]
+image[220:270, 240:290] = [255, 255, 255]
+
+# Window glass (light blue)
+image[125:165, 125:165] = [173, 216, 230]
+image[125:165, 245:285] = [173, 216, 230]
+image[225:265, 125:165] = [173, 216, 230]
+image[225:265, 245:285] = [173, 216, 230]
+
+# Sun (yellow)
+image[50:100, 350:400] = [255, 255, 0]
+
+# Display the image
+plt.imshow(image)
+plt.axis('off')
+plt.show()
