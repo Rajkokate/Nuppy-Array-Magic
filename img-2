@@ -1,0 +1,34 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Create a blank canvas for the image
+width = 400
+height = 300
+channels = 3
+image = np.zeros((height, width, channels), dtype=np.uint8)
+
+# Background (Gradient)
+for y in range(height):
+    for x in range(width):
+        r = int(255 * (y / height))
+        g = int(255 * (x / width))
+        b = int(255 * ((x + y) / (width + height)))
+        image[y, x, 0] = r
+        image[y, x, 1] = g
+        image[y, x, 2] = b
+
+# Create a pattern (Circle)
+center_x = width // 2
+center_y = height // 2
+radius = 50
+for y in range(height):
+    for x in range(width):
+        distance = np.sqrt((x - center_x) ** 2 + (y - center_y) ** 2)
+        if distance < radius:
+            image[y, x, :] = [255, 255, 0]  # Yellow circle
+
+# Display the image
+plt.imshow(image)
+plt.axis('off')
+plt.show()
+
